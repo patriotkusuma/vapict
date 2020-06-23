@@ -187,20 +187,19 @@ function callOwlCarousel() {
   $('.owl-carousel').owlCarousel({
     loop: true,
     margin: 5,
-    dots: true,
     responsiveClass: true,
     responsive: {
       0: {
         items: 1,
-        nav: true
+        dots: true,
       },
       600: {
+        dots: true,
         items: 3,
-        nav: false
       },
       1000: {
+        dots: true,
         items: 5,
-        nav: true,
         loop: false
       }
     }
@@ -208,12 +207,12 @@ function callOwlCarousel() {
 }
 
 function sindonewsAPI() {
+  $('.loading').show();
   $.ajax({
     url: api.sindonewsUrl,
     success: function (res) {
       let w = res.data;
-
-
+      $('.loading').hide();
       $.each(w, function (i, data) {
         if (i < 10) {
           $('.owl-carousel').append(`
@@ -239,6 +238,7 @@ function sindonewsAPI() {
 }
 
 $(document).ready(function () {
+  $('.loading').hide();
   topNewsId();
   newsCovid();
   countCovidHome();
