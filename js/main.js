@@ -1,10 +1,16 @@
 const api = {
   proxyUrl: "https://cors-anywhere.herokuapp.com/",
   urlNews: "http://newsapi.org/v2/",
-  urlCovidIndonesia: "https://api.covid19api.com/",
+  urlCovidIndonesia: "https://indonesia-covid-19-api.now.sh/",
   keyNews: "b422121f5eec42f786f7420a95272b7e"
 }
 
+function commaSeparateNumber(val) {
+  while (/(\d+)(\d{3})/.test(val.toString())) {
+    val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+  }
+  return val;
+}
 
 function topNewsId() {
   $.ajax({
@@ -43,10 +49,7 @@ function topNewsId() {
           `);
 
 
-          $('#image-corona').attr('src', res.articles[1].urlToImage);
-          $('#text-title-corona').text(res.articles[1].title).attr('href', res.articles[1].url);
-          $('#author-corona').text(res.articles[1].author);
-          $('#time-edit-corona-news').text(res.articles[1].publishedAt.substring(0, 10));
+
         });
 
       }
@@ -57,7 +60,7 @@ function topNewsId() {
 
 function newsCovid() {
   $.ajax({
-    url: api.urlNews + "everything?q=corona&sortBy=publishedAt&apiKey=" + api.keyNews,
+    url: api.urlNews + "top-headlines?q=corona&sortBy=publishedAt&apiKey=" + api.keyNews,
     success: function (res) {
 
       $('#text-corona').after(`
@@ -92,15 +95,22 @@ function newsCovid() {
         </div>
         <!-- Berita End -->
       `);
+
+      $('#image-corona').attr('src', res.articles[1].urlToImage);
+      $('#text-title-corona').text(res.articles[1].title).attr('href', res.articles[1].url);
+      $('#author-corona').text(res.articles[1].author);
+      $('#time-edit-corona-news').text(res.articles[1].publishedAt.substring(0, 10));
     }
   })
 }
 
 function countCovidHome() {
   $.ajax({
-    url: api.urlCovidIndonesia,
+    url: api.urlCovidIndonesia + "api",
     success: function (res) {
-      $('#count-positif');
+      $('#count-positif').text(commaSeparateNumber(res.jumlahKasus));
+      $('#count-meninggal').text(commaSeparateNumber(res.meninggal));
+      $('#count-sembuh').text(commaSeparateNumber(res.sembuh));
     }
   })
 }
