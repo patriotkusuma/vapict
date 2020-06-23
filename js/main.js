@@ -1,19 +1,20 @@
 const api = {
+  proxyUrl: "https://cors-anywhere.herokuapp.com/",
   urlNews: "http://newsapi.org/v2/",
+  urlCovidIndonesia: "https://api.covid19api.com/",
   keyNews: "b422121f5eec42f786f7420a95272b7e"
 }
+
 
 function topNewsId() {
   $.ajax({
     url: api.urlNews + "top-headlines?country=id&apiKey=" + api.keyNews,
     success: function (res) {
-      // console.log(JSON.stringify(res));
 
       if (res.status = "ok") {
 
         let w = res.articles;
 
-        console.log()
         $.each(w, function (i, data) {
           $('#berita-indonesia').append(`
             <div class="col-md-4 mt-5 ">
@@ -24,7 +25,7 @@ function topNewsId() {
                 <div class="card-body">
                   <a class="card-title h5" target="_blank" href="` + data.url + `">` + data.title + `</a>
                   <p class="card-text">
-                    ` + data.content.substring(60) + `...
+                    ` + data.content.substring(0, 150) + `...
                   </p>
                   <p class="card-text">
                       <small class="text-muted mr-2">
@@ -40,6 +41,12 @@ function topNewsId() {
               </div>
             </div>
           `);
+
+
+          $('#image-corona').attr('src', res.articles[1].urlToImage);
+          $('#text-title-corona').text(res.articles[1].title).attr('href', res.articles[1].url);
+          $('#author-corona').text(res.articles[1].author);
+          $('#time-edit-corona-news').text(res.articles[1].publishedAt.substring(0, 10));
         });
 
       }
@@ -48,6 +55,58 @@ function topNewsId() {
   })
 }
 
+function newsCovid() {
+  $.ajax({
+    url: api.urlNews + "everything?q=corona&sortBy=publishedAt&apiKey=" + api.keyNews,
+    success: function (res) {
+
+      $('#text-corona').after(`
+        <!-- Berita Start -->
+        <div class="row mt-3 mx-3">
+          <!-- Image -->
+          <div class="col-md-6">
+            <img class="card-img-top"
+              src="` + res.articles[0].urlToImage + `" />
+          </div>
+
+          <!-- Isi -->
+          <div class="col-md-6 my-auto">
+            <a class="h5 text-dark" href="` + res.articles[0].url + `">
+              ` + res.articles[0].title + `
+            </a>
+            <p class="text-secondary">
+              <small>
+                <i class="fas fa-user"></i>
+                ` + res.articles[0].author + `
+                <span class="ml-2">
+                  <i class="far fa-clock"></i>
+                  ` + res.articles[0].publishedAt.substring(0, 10) + `
+                </span>
+              </small>
+            </p>
+
+            <p class="card-text">
+              ` + res.articles[0].content.substring(0, 180) + `...
+            </p>
+          </div>
+        </div>
+        <!-- Berita End -->
+      `);
+    }
+  })
+}
+
+function countCovidHome() {
+  $.ajax({
+    url: api.urlCovidIndonesia,
+    success: function (res) {
+      $('#count-positif');
+    }
+  })
+}
+
 $(document).ready(function () {
   topNewsId();
+  newsCovid();
+  countCovidHome();
 });
