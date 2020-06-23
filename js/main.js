@@ -215,9 +215,11 @@ function sindonewsAPI() {
       $('.loading').hide();
       $.each(w, function (i, data) {
         if (i < 10) {
+          // var img = (data.poster == 'undifined' ? '/Image/no_image.jpg' : data.poster);
+
           $('.owl-carousel').append(`
-            <div class="card shadow rounded" style="width: 12rem;">
-                  <img class="card-img-top" src="` + data.poster + `" alt="Card image cap">
+            <div class="card shadow rounded-lg" style="width: 12rem;">
+                  <img class="card-img-top image-carousel" src="` + data.poster + `" alt="Card image cap">
                   <div class="card-body">
                       <a target="_blank" class="card-title text-dark font-weight-bold" href="` + data.link + `">` + data.judul.substring(0, 25) + `...</a>
                       <p class="card-text"><small> ` + data.kutipan.substring(0, 50) + `...</small></p>
@@ -225,6 +227,7 @@ function sindonewsAPI() {
               </div>
           `);
         }
+
 
         if (i > 10) {
           return false;
