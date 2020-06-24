@@ -63,12 +63,14 @@ function topNewsId() {
           $("#berita-indonesia").append(
             `
             <div class="col-md-4 mt-5 ">
-              <div class="card">
-                <img class="card-img-top"
-                  src="` +
+              <div class="card shadow">
+                <div class="inner">
+                  <img class="card-img-top"
+                    src="` +
             data.urlToImage +
             `"
-                  alt="Card image cap" />
+                    alt="Card image cap" />
+                  </div>
                 <div class="card-body">
                   <a class="card-title h5" target="_blank" href="` +
             data.url +
