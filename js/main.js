@@ -66,9 +66,8 @@ function topNewsId() {
                   <img class="w-100" src="` + w[w.length - 3].urlToImage + `" />
                   <div class="card-img-overlay d-flex overlay-dark">
                       <div class="align-self-center mx-auto text-light">
-                          <a href="` + w[w.length - 3].url + `" target="_blank" class="h2 font-weight-bolder text-light"
-                              id="text-title-corona">` + w[w.length - 3].title + `
-                              Corona</a>
+                          <a href="` + w[w.length - 3].url + `" target="_blank" class="h2 font-weight-bolder text-light">` + w[w.length - 3].title + `
+                              </a>
                           <br class="mb-3" />
                           <a class="mt-5">
                               <i class="fas fa-user mr-2"></i> <span >` + w[w.length - 3].author + `</span> -
@@ -111,9 +110,6 @@ function topNewsId() {
           `);
 
         $.each(w, function (i, data) {
-
-
-
           $("#berita-indonesia").append(
             `
             <div class="col-md-4 mt-5 ">
@@ -153,8 +149,25 @@ function topNewsId() {
                 </div>
               </div>
             </div>
-          `
-          );
+          `);
+
+          $('#top-news-nasional').after(`
+            <div class="row mt-2 ml-1 border-bottom">
+              <div class="col-md-4 my-auto">
+                  <img class="card-img-top image-carousel"
+                      src="` + data.urlToImage + `"
+                      alt="Card image cap">
+              </div>
+              <div class="col-md-8 my-auto">
+                  <a target="_blank" class="card-title text-dark" href="` + data.link + `">` + data.title + `</a>
+                  <br />
+                  <small class="text-muted">
+                      <i class="far fa-clock mr-1"></i>
+                      05 Juli 2020
+                  </small>
+              </div>
+            </div>
+          `);
         });
       }
     },
@@ -174,10 +187,12 @@ function newsCovid() {
         <div class="row mt-3 mx-3">
           <!-- Image -->
           <div class="col-md-6">
-            <img class="card-img-top"
-              src="` +
+            <div class="inner">
+              <img class="card-img-top"
+                src="` +
         res.articles[0].urlToImage +
         `" />
+            </div>
           </div>
 
           <!-- Isi -->
@@ -212,8 +227,7 @@ function newsCovid() {
           </div>
         </div>
         <!-- Berita End -->
-      `
-      );
+      `);
 
       $("#image-corona").attr("src", res.articles[1].urlToImage);
       $("#text-title-corona")
@@ -271,11 +285,12 @@ function sindonewsAPI() {
       $('.loading').hide();
       $.each(w, function (i, data) {
         if (i < 10) {
-          // var img = (data.poster == 'undifined' ? '/Image/no_image.jpg' : data.poster);
 
           $('.owl-carousel').append(`
             <div class="card shadow rounded-lg" style="width: 12rem;">
-                  <img class="card-img-top image-carousel" src="` + data.poster + `" alt="Card image cap">
+                  <div class="inner">
+                    <img class="card-img-top image-carousel" src="` + data.poster + `" alt="Card image cap">
+                  </div>
                   <div class="card-body">
                       <a target="_blank" class="card-title text-dark font-weight-bold" href="` + data.link + `">` + data.judul.substring(0, 25) + `...</a>
                       <p class="card-text"><small> ` + data.kutipan.substring(0, 50) + `...</small></p>
@@ -305,15 +320,16 @@ function newsBusinessID() {
 
       $.each(w, function (i, data) {
         $('#row-news-id').append(`
-          <div class="row mt-5 border-bottom pb-2">
+          <div class="row mt-3 border-bottom pb-2">
               <div class="col-sm-4 my-auto">
+                <div class="inner">
                   <img class="w-100" src="` + data.urlToImage + `" />
+                </div>
               </div>
               <div class="col-sm-8 my-auto">
-                  <small class="text-muted">` + timeDateFormat(data.publishedAt).dt + `</small>
-                  <br/>
                   <a class="h4  text-dark" target="_blank" href="` + data.url + `">` + data.title + `</a>
-                  <p>` + data.content.substring(0, 200) + `</p>
+                  <p class="m-0" >` + data.content.substring(0, 200) + `</p>
+                  <small class="text-muted">` + timeDateFormat(data.publishedAt).dt + `</small>
               </div>
           </div>
         `);
