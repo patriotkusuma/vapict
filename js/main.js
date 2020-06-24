@@ -59,22 +59,60 @@ function topNewsId() {
       if ((res.status = "ok")) {
         let w = res.articles;
 
+        $('#top-news-id-3').append(`
+          <div class="col-sm-8 my-auto">
+            <div class="card shadow-sm">
+                  
+                  <img class="w-100" src="` + w[w.length - 3].urlToImage + `" />
+                  <div class="card-img-overlay d-flex overlay-dark">
+                      <div class="align-self-center mx-auto text-light">
+                          <a href="` + w[w.length - 3].url + `" target="_blank" class="h2 font-weight-bolder text-light"
+                              id="text-title-corona">` + w[w.length - 3].title + `
+                              Corona</a>
+                          <br class="mb-3" />
+                          <a class="mt-5">
+                              <i class="fas fa-user mr-2"></i> <span >` + w[w.length - 3].author + `</span> -
+                              <span ><i class="far fa-clock mr-2"></i>` + timeDateFormat(w[w.length - 3].publishedAt).dt + `</span>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-sm-4 my-auto">
+              <div class="card mt-2 shadow-sm">
+                  <img class="w-100" src="` + w[w.length - 2].urlToImage + `" />
+                  <div class="card-img-overlay d-flex overlay-dark">
+                      <div class="align-self-center my-auto mx-auto text-light">
+                          <a href="` + w[w.length - 2].url + `" target="_blank" class="h5 font-weight-bolder text-light"
+                              id="text-title-corona">` + w[w.length - 2].title + `</a>
+                          <br />
+                          <a class="mt-3">
+                              <i class="fas fa-user mr-2"></i> <span>` + w[w.length - 2].author + `</span> -
+                              <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` + timeDateFormat(w[w.length - 2].publishedAt).dt + `</span>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+              <div class="card mt-2 shadow-sm">
+                  <img class="w-100" src="` + w[w.length - 1].urlToImage + `" />
+                  <div class="card-img-overlay d-flex overlay-dark">
+                      <div class="align-self-center mx-auto text-light">
+                          <a href="` + w[w.length - 1].url + `" target="_blank" class="h5 font-weight-bolder text-light"
+                              id="text-title-corona">` + w[w.length - 1].title + `</a>
+                          <br />
+                          <a class="mt-3">
+                              <i class="fas fa-user mr-2"></i> <span id="author-corona">` + w[w.length - 1].author + `</span> -
+                              <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` + timeDateFormat(w[w.length - 1].publishedAt).dt + `</span>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          `);
 
         $.each(w, function (i, data) {
 
-          $('#row-news-id').append(`
-            <div class="row mt-5 border-bottom pb-2">
-                <div class="col-sm-4 my-auto">
-                    <img class="w-100" src="` + data.urlToImage + `" />
-                </div>
-                <div class="col-sm-8 my-auto">
-                    <small class="text-muted">` + timeDateFormat(data.publishedAt).dt + `</small>
-                    <br/>
-                    <a class="h4  text-dark" target="_blank" href="` + data.url + `">` + data.title + `</a>
-                    <p>` + data.content.substring(0, 200) + `</p>
-                </div>
-            </div>
-           `);
+
 
           $("#berita-indonesia").append(
             `
@@ -258,15 +296,36 @@ function sindonewsAPI() {
   });
 }
 
+// News Business
 function newsBusinessID() {
   $.ajax({
+    url: api.urlNews + "top-headlines?country=id&category=business&apiKey=" + api.keyNews1,
+    success: function (res) {
+      let w = res.articles;
 
+      $.each(w, function (i, data) {
+        $('#row-news-id').append(`
+          <div class="row mt-5 border-bottom pb-2">
+              <div class="col-sm-4 my-auto">
+                  <img class="w-100" src="` + data.urlToImage + `" />
+              </div>
+              <div class="col-sm-8 my-auto">
+                  <small class="text-muted">` + timeDateFormat(data.publishedAt).dt + `</small>
+                  <br/>
+                  <a class="h4  text-dark" target="_blank" href="` + data.url + `">` + data.title + `</a>
+                  <p>` + data.content.substring(0, 200) + `</p>
+              </div>
+          </div>
+        `);
+      });
+    }
   });
 }
 
 $(document).ready(function () {
   let dt = new Date(1593005616000);
   $('.loading').hide();
+  newsBusinessID();
   topNewsId();
   newsCovid();
   countCovidHome();
