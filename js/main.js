@@ -59,7 +59,23 @@ function topNewsId() {
       if ((res.status = "ok")) {
         let w = res.articles;
 
+
         $.each(w, function (i, data) {
+
+          $('#row-news-id').append(`
+            <div class="row mt-5 border-bottom pb-2">
+                <div class="col-sm-4 my-auto">
+                    <img class="w-100" src="` + data.urlToImage + `" />
+                </div>
+                <div class="col-sm-8 my-auto">
+                    <small class="text-muted">` + timeDateFormat(data.publishedAt).dt + `</small>
+                    <br/>
+                    <a class="h4  text-dark" target="_blank" href="` + data.url + `">` + data.title + `</a>
+                    <p>` + data.content.substring(0, 200) + `</p>
+                </div>
+            </div>
+           `);
+
           $("#berita-indonesia").append(
             `
             <div class="col-md-4 mt-5 ">
@@ -242,7 +258,14 @@ function sindonewsAPI() {
   });
 }
 
+function newsBusinessID() {
+  $.ajax({
+
+  });
+}
+
 $(document).ready(function () {
+  let dt = new Date(1593005616000);
   $('.loading').hide();
   topNewsId();
   newsCovid();
