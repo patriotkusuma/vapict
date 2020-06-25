@@ -110,6 +110,8 @@ function topNewsId() {
           `);
 
         $.each(w, function (i, data) {
+          
+          if(i<12){
           $("#berita-indonesia").append(
             `
             <div class="col-md-4 mt-5 ">
@@ -151,6 +153,9 @@ function topNewsId() {
             </div>
           `);
 
+
+          
+          // Little Top News
           $('#top-news-nasional').after(`
             <div class="row mt-2 ml-1 border-bottom">
               <div class="col-md-4 my-auto">
@@ -168,6 +173,12 @@ function topNewsId() {
               </div>
             </div>
           `);
+
+          }
+
+          if(i>12){
+            return false;
+          }
         });
       }
     },
@@ -338,6 +349,127 @@ function newsBusinessID() {
   });
 }
 
+function newsBusinessIT(){
+  $.ajax({
+    url: api.urlNews + "top-headlines?category=business&apiKey=" + api.keyNews1,
+    success: function (res) {
+      let w = res.articles;
+
+
+      $.each(w, function (i, data) {
+        console.log(data.urlToImage);
+        $('#row-news-it').append(`
+          <div class="row mt-3 border-bottom pb-2">
+              <div class="col-sm-4 my-auto">
+                <div class="inner">
+                  <img class="w-100" src="` + data.urlToImage + `" />
+                </div>
+              </div>
+              <div class="col-sm-8 my-auto">
+                  <a class="h4  text-dark" target="_blank" href="` + data.url + `">` + data.title + `</a>
+                  <p class="m-0" >`+data.description+`</p>
+                  <small class="text-muted">` + timeDateFormat(data.publishedAt).dt + `</small>
+              </div>
+          </div>
+        `);
+      });
+    }
+  });
+}
+
+// TOP News International
+function topNewsIT() {
+  $.ajax({
+    url: api.urlNews + "top-headlines?country=us&apiKey=" + api.keyNews1,
+    success: function (res) {
+      if ((res.status = "ok")) {
+        let w = res.articles;
+
+        $('#top-news-it-3').append(`
+          <div class="col-sm-8 my-auto">
+            <div class="card shadow-sm">
+                  
+                  <img class="w-100" src="` + w[w.length - 3].urlToImage + `" />
+                  <div class="card-img-overlay d-flex overlay-dark">
+                      <div class="align-self-center mx-auto text-light">
+                          <a href="` + w[w.length - 3].url + `" target="_blank" class="h2 font-weight-bolder text-light">` + w[w.length - 3].title + `
+                              </a>
+                          <br class="mb-3" />
+                          <a class="mt-5">
+                              <i class="fas fa-user mr-2"></i> <span >` + w[w.length - 3].author + `</span> -
+                              <span ><i class="far fa-clock mr-2"></i>` + timeDateFormat(w[w.length - 3].publishedAt).dt + `</span>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-sm-4 my-auto">
+              <div class="card mt-2 shadow-sm">
+                  <img class="w-100" src="` + w[w.length - 2].urlToImage + `" />
+                  <div class="card-img-overlay d-flex overlay-dark">
+                      <div class="align-self-center my-auto mx-auto text-light">
+                          <a href="` + w[w.length - 2].url + `" target="_blank" class="h5 font-weight-bolder text-light"
+                              id="text-title-corona">` + w[w.length - 2].title + `</a>
+                          <br />
+                          <a class="mt-3">
+                              <i class="fas fa-user mr-2"></i> <span>` + w[w.length - 2].author + `</span> -
+                              <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` + timeDateFormat(w[w.length - 2].publishedAt).dt + `</span>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+              <div class="card mt-2 shadow-sm">
+                  <img class="w-100" src="` + w[w.length - 1].urlToImage + `" />
+                  <div class="card-img-overlay d-flex overlay-dark">
+                      <div class="align-self-center mx-auto text-light">
+                          <a href="` + w[w.length - 1].url + `" target="_blank" class="h5 font-weight-bolder text-light"
+                              id="text-title-corona">` + w[w.length - 1].title + `</a>
+                          <br />
+                          <a class="mt-3">
+                              <i class="fas fa-user mr-2"></i> <span id="author-corona">` + w[w.length - 1].author + `</span> -
+                              <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` + timeDateFormat(w[w.length - 1].publishedAt).dt + `</span>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          `);
+
+        $.each(w, function (i, data) {
+          
+          if(i<12){
+          
+          // Little Top News
+          $('#top-news-internasional').after(`
+            <div class="row mt-2 ml-1 border-bottom">
+              <div class="col-md-4 my-auto">
+                  <img class="card-img-top image-carousel"
+                      src="` + data.urlToImage + `"
+                      alt="Card image cap">
+              </div>
+              <div class="col-md-8 my-auto">
+                  <a target="_blank" class="card-title text-dark" href="` + data.link + `">` + data.title + `</a>
+                  <br />
+                  <small class="text-muted">
+                      <i class="far fa-clock mr-1"></i>
+                      05 Juli 2020
+                  </small>
+              </div>
+            </div>
+          `);
+
+          }
+
+          if(i>12){
+            return false;
+          }
+        });
+      }
+    },
+  });
+}
+
+
 $(document).ready(function () {
   let dt = new Date(1593005616000);
   $('.loading').hide();
@@ -345,5 +477,7 @@ $(document).ready(function () {
   topNewsId();
   newsCovid();
   countCovidHome();
+  newsBusinessIT();
+  topNewsIT();
   sindonewsAPI();
 });
