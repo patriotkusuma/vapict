@@ -4,6 +4,7 @@ const api = {
   proxyUrl: "https://cors-anywhere.herokuapp.com/",
   urlNews: "http://newsapi.org/v2/",
   urlCovidIndonesia: "https://indonesia-covid-19-api.now.sh/",
+  urlFootballApi: "https://apiv2.apifootball.com/",
   keyNews: "b422121f5eec42f786f7420a95272b7e",
   keyNews1: "adc2048d9f684f759754fdeb64ee7242",
   keyApiFootball: "799d55db35e3fc05fd2e3518dd53ad8f824164f6c74175f9d672853639467c5e",
@@ -16,6 +17,7 @@ function commaSeparateNumber(val) {
   }
   return val;
 }
+
 
 // Array tanggal
 const tgl = {
@@ -110,42 +112,42 @@ function topNewsId() {
           `);
 
         $.each(w, function (i, data) {
-          
-          if(i<12){
-          $("#berita-indonesia").append(
-            `
+
+          if (i < 12) {
+            $("#berita-indonesia").append(
+              `
             <div class="col-md-4 mt-5 ">
               <div class="card shadow">
                 <div class="inner">
                   <img class="card-img-top"
                     src="` +
-            data.urlToImage +
-            `"
+              data.urlToImage +
+              `"
                     alt="Card image cap" />
                   </div>
                 <div class="card-body">
                   <a class="card-title h5" target="_blank" href="` +
-            data.url +
-            `">` +
-            data.title +
-            `</a>
+              data.url +
+              `">` +
+              data.title +
+              `</a>
                   <p class="card-text">
                     ` +
-            data.content.substring(0, 150) +
-            `...
+              data.content.substring(0, 150) +
+              `...
                   </p>
                   <p class="card-text">
                       <small class="text-muted mr-2">
                       <i class="far fa-calendar-check"></i>  
                       ` +
-            timeDateFormat(data.publishedAt).dt +
-            `
+              timeDateFormat(data.publishedAt).dt +
+              `
                       </small>
                       <small class="text-muted">
                       <i class="far fa-clock"></i>
                       ` +
-            timeDateFormat(data.publishedAt).tm +
-            `</small>
+              timeDateFormat(data.publishedAt).tm +
+              `</small>
 
                   </p>
                 </div>
@@ -154,9 +156,9 @@ function topNewsId() {
           `);
 
 
-          
-          // Little Top News
-          $('#top-news-nasional').after(`
+
+            // Little Top News
+            $('#top-news-nasional').after(`
             <div class="row mt-2 ml-1 border-bottom">
               <div class="col-md-4 my-auto">
                   <img class="card-img-top image-carousel"
@@ -176,7 +178,7 @@ function topNewsId() {
 
           }
 
-          if(i>12){
+          if (i > 12) {
             return false;
           }
         });
@@ -349,7 +351,7 @@ function newsBusinessID() {
   });
 }
 
-function newsBusinessIT(){
+function newsBusinessIT() {
   $.ajax({
     url: api.urlNews + "top-headlines?category=business&apiKey=" + api.keyNews1,
     success: function (res) {
@@ -367,7 +369,7 @@ function newsBusinessIT(){
               </div>
               <div class="col-sm-8 my-auto">
                   <a class="h4  text-dark" target="_blank" href="` + data.url + `">` + data.title + `</a>
-                  <p class="m-0" >`+data.description+`</p>
+                  <p class="m-0" >` + data.description + `</p>
                   <small class="text-muted">` + timeDateFormat(data.publishedAt).dt + `</small>
               </div>
           </div>
@@ -436,11 +438,9 @@ function topNewsIT() {
           `);
 
         $.each(w, function (i, data) {
-          
-          if(i<12){
-          
-          // Little Top News
-          $('#top-news-internasional').after(`
+          if (i < 12) {
+            // Little Top News
+            $('#top-news-internasional').after(`
             <div class="row mt-2 ml-1 border-bottom">
               <div class="col-md-4 my-auto">
                   <img class="card-img-top image-carousel"
@@ -460,7 +460,7 @@ function topNewsIT() {
 
           }
 
-          if(i>12){
+          if (i > 12) {
             return false;
           }
         });
@@ -469,6 +469,70 @@ function topNewsIT() {
   });
 }
 
+function newsSportID() {
+  $.ajax({
+    url: api.urlNews + "top-headlines?country=id&category=sport&apiKey=" + api.keyNews1,
+    success: function (res) {
+      let w = res.articles;
+
+      $.each(w, function (i, data) {
+        $('#row-news-sp').append(`
+          <div class="row mt-3 border-bottom pb-2">
+              <div class="col-sm-4 my-auto">
+                <div class="inner">
+                  <img class="w-100" src="` + data.urlToImage + `" />
+                </div>
+              </div>
+              <div class="col-sm-8 my-auto">
+                  <a class="h4  text-dark" target="_blank" href="` + data.url + `">` + data.title + `</a>
+                  <p class="m-0" >` + data.content.substring(0, 200) + `</p>
+                  <small class="text-muted">` + timeDateFormat(data.publishedAt).dt + `</small>
+              </div>
+          </div>
+        `);
+      });
+    }
+  });
+}
+
+function topFootball() {
+  $.ajax({
+    url: api.urlNews + "everything?q=sepak-bola&apiKey=" + api.keyNews1,
+    success: function (res) {
+      if ((res.status = "ok")) {
+        let w = res.articles;
+
+        $.each(w, function (i, data) {
+          if (i < 12) {
+            // Little Top News
+            $('#top-news-football').after(`
+            <div class="row mt-2 ml-1 border-bottom">
+              <div class="col-md-4 my-auto">
+                  <img class="card-img-top image-carousel"
+                      src="` + data.urlToImage + `"
+                      alt="Card image cap">
+              </div>
+              <div class="col-md-8 my-auto">
+                  <a target="_blank" class="card-title text-dark" href="` + data.link + `">` + data.title + `</a>
+                  <br />
+                  <small class="text-muted">
+                      <i class="far fa-clock mr-1"></i>
+                      05 Juli 2020
+                  </small>
+              </div>
+            </div>
+          `);
+
+          }
+
+          if (i > 12) {
+            return false;
+          }
+        });
+      }
+    },
+  });
+}
 
 $(document).ready(function () {
   let dt = new Date(1593005616000);
@@ -479,5 +543,7 @@ $(document).ready(function () {
   countCovidHome();
   newsBusinessIT();
   topNewsIT();
+  newsSportID();
+  topFootball();
   sindonewsAPI();
 });
