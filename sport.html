@@ -24,89 +24,66 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
 
-
-    <title>Nasional</title>
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <title>Sport : VA News</title>
 </head>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
-    <!-- <div class="header-middle-area "> -->
-        <div class="row py-2 ml-0">
-        <!-- <div class="container"> -->
-                <div class="col-md-5  align-self-center">
-                    <div class="logo-area text-center">
-                        <a href="index.html">
-                            <img src="/Image/VAfix1.png" width="250" alt="VA News" class="img-fluid" />
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-7 align-self-center">
-                    <ul class="text-center list-unstyled list-inline">
-                        <li class="list-inline-item">
-                            <a href="#" class="h5">
-                                <i class="fa fa-instagram text-dark"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#" class="h5">
-                                <i class="fa fa-youtube text-dark"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-            <!-- </div> -->
-        </div>
-    <!-- </div> -->
+<body style="background-color:#DDE4E7;">
 
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg navbar-dark m-auto bg-danger" data-spy="affix" data-offset-top="197">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark m-auto bg-dark  shadow" id="navbar_top">
+        <div class="container" style="font-family: 'Roboto'; font-weight:600; ">
+            <a class="navbar-brand" href="index.html">
+                <img src="/Image/VAfix1.png" width="150" alt="">
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="mx-auto order-0">
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item  mx-2">
-                            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item  mx-2">
-                            <a class="nav-link" href="nasional.html">Nasional <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" href="international.html">International</a>
-                        </li>
-                        <li class="nav-item  mx-2">
-                            <a class="nav-link" href="covid.html">Covid-19</a>
-                        </li>
-                        <li class="nav-item active mx-2">
-                            <a class="nav-link" href="sport.html">Olahraga</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" href="#">Religi</a>
-                        </li>
-                    </ul>
-                </div>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item  mx-2">
+                        <a class="nav-link " href="index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item  mx-2">
+                        <a class="nav-link " href="nasional.html">Nasional <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link " href="international.html">International</a>
+                    </li>
+                    <li class="nav-item  mx-2">
+                        <a class="nav-link " href="covid.html">Covid-19</a>
+                    </li>
+                    <li class="nav-item active mx-2">
+                        <a class="nav-link " href="sport.html">Olahraga</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link " href="#">Religi</a>
+                    </li>
+                </ul>
+
             </div>
         </div>
     </nav>
     <!-- Navbar End -->
 
     <!-- Owl Carousel -->
-    <div class="container mt-3 ">
-        <h3 class="font-weight-bold border-bottom border-danger pb-2"><i
+    <div class="container bg-white py-4">
+        <h3 class="font-weight-bold  border-bottom border-danger pb-2"><i
                 class="fas text-danger fa-grip-lines-vertical mr-2"></i>Live Score
         </h3>
         <i class=" fa fa-spin fa-spinner mt-5 fa-4x loading" aria-hidden="true"></i>
         <div class="owl-carousel mt-3">
-
         </div>
-
     </div>
     <!-- End Owl Carousel -->
 
-    <div class="container mt-3">
+    <!-- Isi Start -->
+    <div class="container bg-white py-3 pb-5">
         <div class="row" id="top-news-it-3">
 
         </div>
@@ -130,7 +107,7 @@
     <!-- Top News by  -->
 
     <!-- Footer Start-->
-    <nav class="navbar  mt-5 bg-dark justify-content-center">
+    <nav class="navbar  my-auto  bg-dark justify-content-center">
         <p class="navbar-text text-light mb-0">
             © 2020 Copyright: <a href="index.html" class="text-light"> Va News</a>
         </p>
