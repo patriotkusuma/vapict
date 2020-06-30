@@ -3,7 +3,7 @@ const api = {
   sindonewsUrl: "https://berita-news.herokuapp.com/",
   proxyUrl: "https://cors-anywhere.herokuapp.com/",
   urlNews: "http://newsapi.org/v2/",
-  urlCovidIndonesia: "https://indonesia-covid-19-api.now.sh/",
+  urlCovidIndonesia: "https://api.kawalcorona.com/",
   urlFootballApi: "https://apiv2.apifootball.com/",
   keyNews: "b422121f5eec42f786f7420a95272b7e",
   keyNews1: "adc2048d9f684f759754fdeb64ee7242",
@@ -297,11 +297,11 @@ function newsCovid() {
 // Function Count Covid
 function countCovidHome() {
   $.ajax({
-    url: api.urlCovidIndonesia + "api",
+    url: api.urlCovidIndonesia + "indonesia",
     success: function (res) {
-      $("#count-positif").text(commaSeparateNumber(res.jumlahKasus));
-      $("#count-meninggal").text(commaSeparateNumber(res.meninggal));
-      $("#count-sembuh").text(commaSeparateNumber(res.sembuh));
+      $("#count-positif").text(commaSeparateNumber(res[0].positif));
+      $("#count-meninggal").text(commaSeparateNumber(res[0].meninggal));
+      $("#count-sembuh").text(commaSeparateNumber(res[0].sembuh));
     },
   });
 }
@@ -686,8 +686,8 @@ function topSindoCovid() {
                   <a target="_blank" class="card-title text-dark" href="` +
               data.link +
               `">` +
-              data.judul +
-              `</a>
+              data.judul.substring(0, 50) +
+              `...</a>
                   <br />
                   <small class="text-muted">
                       <i class="far fa-clock mr-1"></i>
@@ -708,12 +708,122 @@ function topSindoCovid() {
   })
 }
 
+function covidIdProvince() {
+  $.ajax({
+    url: api.urlCovidIndonesia + "indonesia/provinsi",
+    success: function (res) {
+      var nomor = 0;
+      $.each(res, function (i, data) {
+        console.log();
+        nomor = i + 1;
+        $('#tbody-corona').append(`
+        <tr>
+        <td>` + nomor + `</td>
+        <td>` + data.attributes.Provinsi + `</td>
+        <td>` + data.attributes.Kasus_Posi + `</td>
+        <td>` + data.attributes.Kasus_Semb + `</td>
+        <td>` + data.attributes.Kasus_Meni + `</td>
+        </tr>
+        `);
+
+
+      })
+
+      $('#table-corona').DataTable({
+        "searching": true,
+        "lengthMenu": [
+          [5, 10, 15],
+          [5, 10, 15]
+        ],
+        "paging": true,
+        "destroy": true,
+        "lengthChange": false,
+      });
+
+    }
+  })
+}
+
+function coronaAtas() {
+  $.ajax({
+    url: api.urlCovidIndonesia + "indonesia",
+    success: function (res) {
+      $('#covid-id').append(`
+          <div class="card mx-3 shadow text-white bg-danger mb-3" style="max-width: 18rem;">
+            <div class="card-header h4">Posisitf</div>
+            <div class="card-body">
+              <h5 class="card-title">` + res[0].positif + ` </h5>
+            </div>
+          </div>
+
+          <div class="card mx-3 shadow text-white bg-success mb-3" style="max-width: 18rem;">
+            <div class="card-header h4">Sembuh</div>
+            <div class="card-body">
+              <h5 class="card-title">` + res[0].sembuh + ` </h5>
+            </div>
+          </div>
+
+          <div class="card mx-3 shadow text-white bg-warning mb-3" style="max-width: 18rem;">
+            <div class="card-header h4">Meninggal</div>
+            <div class="card-body">
+              <h5 class="card-title">` + res[0].meninggal + ` </h5>
+            </div>
+          </div>
+
+          <div class="card mx-3 shadow text-white bg-info mb-3" style="max-width: 18rem;">
+            <div class="card-header h4">Dirawat</div>
+            <div class="card-body">
+              <h5 class="card-title">` + res[0].dirawat + ` </h5>
+            </div>
+          </div>
+      `);
+    }
+  })
+}
+
+function coronaNews() {
+  $.ajax({
+    url: api.urlNews + "top-headlines?q=corona&sortBy=publishedAt&apiKey=" + api.keyNews1,
+    success: function (res) {
+      console.log(JSON.stringify(res));
+      let w = re.articles;
+
+      $.each(w, function (i, data) {
+        $("#row-news-covid").append(
+          `
+          <div class="row mt-3 border-bottom pb-2">
+              <div class="col-sm-4 my-auto">
+                <div class="inner">
+                  <img class="w-100" src="` +
+          data.urlToImage +
+          `" />
+                </div>
+              </div>
+              <div class="col-sm-8 my-auto">
+                  <a class="h4  text-dark" target="_blank" href="` +
+          data.url +
+          `">` +
+          data.title +
+          `</a>
+                  <p class="m-0" >` +
+          data.content.substring(0, 200) +
+          `</p>
+                  <small class="text-muted">` +
+          timeDateFormat(data.publishedAt).dt +
+          `</small>
+              </div>
+          </div>
+        `
+        );
+      });
+    }
+  });
+}
 
 $(document).ready(function () {
   let dt = new Date(1593005616000);
   $(".loading").hide();
 
-  console.log(window.location.pathname);
   var pathname = window.location.pathname;
 
   if (pathname == "/index.html") {
@@ -731,7 +841,9 @@ $(document).ready(function () {
     newsSportID();
     topFootball();
   } else if (pathname == "/covid.html") {
+    coronaAtas();
     topSindoCovid();
+    covidIdProvince();
   }
 
   if ($(window).width() > 992) {
