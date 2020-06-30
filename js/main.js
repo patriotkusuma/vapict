@@ -732,12 +732,13 @@ function covidIdProvince() {
       $('#table-corona').DataTable({
         "searching": true,
         "lengthMenu": [
-          [5, 10, 15],
-          [5, 10, 15]
+          [10, 15, 25],
+          [10, 15, 25]
         ],
         "paging": true,
         "destroy": true,
         "lengthChange": false,
+        "bInfo": false,
       });
 
     }
@@ -783,10 +784,40 @@ function coronaAtas() {
 
 function coronaNews() {
   $.ajax({
-    url: api.urlNews + "top-headlines?q=corona&sortBy=publishedAt&apiKey=" + api.keyNews1,
+    url: api.urlNews + "everything?q=corona&sortBy=publishedAt&apiKey=" + api.keyNews1,
     success: function (res) {
       console.log(JSON.stringify(res));
-      let w = re.articles;
+      let w = res.articles;
+
+      // Small News Covid
+      $('#small-news-covid').append(`
+        <div class="card mt-2 shadow-sm">
+            <img class="w-100" src="` + w[w.length - 1].urlToImage + `" />
+            <div class="card-img-overlay d-flex overlay-dark">
+                <div class="align-self-center my-auto mx-auto text-light">
+                    <a href="` + w[w.length - 1].url + `" target="_blank" class="h5 font-weight-bolder text-light">` + w[w.length - 1].title + `</a>
+                    <br />
+                    <a class="mt-3">
+                        <i class="fas fa-user mr-2"></i> <span>` + w[w.length - 1].author + `</span> -
+                        <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` + timeDateFormat(w[w.length - 1].publishedAt).dt + `</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-2 shadow-sm">
+            <img class="w-100" src="` + w[w.length - 2].urlToImage + `" />
+            <div class="card-img-overlay d-flex overlay-dark">
+                <div class="align-self-center my-auto mx-auto text-light">
+                    <a href="` + w[w.length - 2].url + `" target="_blank" class="h5 font-weight-bolder text-light">` + w[w.length - 2].title + `</a>
+                    <br />
+                    <a class="mt-3">
+                        <i class="fas fa-user mr-2"></i> <span>` + w[w.length - 2].author + `</span> -
+                        <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` + timeDateFormat(w[w.length - 2].publishedAt).dt + `</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+      `);
 
       $.each(w, function (i, data) {
         $("#row-news-covid").append(
@@ -816,7 +847,10 @@ function coronaNews() {
         `
         );
       });
-    }
+
+
+    },
+
   });
 }
 
@@ -844,6 +878,7 @@ $(document).ready(function () {
     coronaAtas();
     topSindoCovid();
     covidIdProvince();
+    coronaNews();
   }
 
   if ($(window).width() > 992) {
