@@ -809,63 +809,64 @@ function coronaNews() {
     success: function (res) {
       let w = res.articles;
 
+      // Small News Covid
+      $("#small-news-covid").append(
+        `
+        <div class="card mt-2 shadow">
+            <img class="w-100" src="` +
+        w[w.length - 2].urlToImage +
+        `" />
+            <div class="card-img-overlay d-flex overlay-dark">
+                <div class="align-self-center my-auto mx-auto text-light">
+                    <a href="` +
+        w[w.length - 2].url +
+        `" target="_blank" class="h5 font-weight-bolder text-light">` +
+        w[w.length - 2].title +
+        `</a>
+                    <br />
+                    <a class="mt-3">
+                        <i class="fas fa-user mr-2"></i> <span>` +
+        w[w.length - 2].author +
+        `</span> -
+                        <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` +
+        timeDateFormat(w[w.length - 2].publishedAt).dt +
+        `</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-2 shadow">
+            <img class="w-100" src="` +
+        w[w.length - 1].urlToImage +
+        `" />
+            <div class="card-img-overlay d-flex overlay-dark">
+                <div class="align-self-center my-auto mx-auto text-light">
+                    <a href="` +
+        w[w.length - 1].url +
+        `" target="_blank" class="h5 font-weight-bolder text-light">` +
+        w[w.length - 1].title +
+        `</a>
+                    <br />
+                    <a class="mt-3">
+                        <i class="fas fa-user mr-2"></i> <span>` +
+        w[w.length - 1].author +
+        `</span> -
+                        <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` +
+        timeDateFormat(w[w.length - 1].publishedAt).dt +
+        `</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+      `);
+
       $.ajax({
         url: api.urlNews +
-          "top-headlines?q=corona&sortBy=publishedAt&country=id&apiKey=" +
+          "everything?q=corona&sortBy=publishedAt&country=id&apiKey=" +
           api.keyNews1,
         success: function (result) {
           let y = result.articles;
-          // Small News Covid
-          $("#small-news-covid").append(
-            `
-            <div class="card mt-2 shadow">
-                <img class="w-100" src="` +
-            y[0].urlToImage +
-            `" />
-                <div class="card-img-overlay d-flex overlay-dark">
-                    <div class="align-self-center my-auto mx-auto text-light">
-                        <a href="` +
-            y[0].url +
-            `" target="_blank" class="h5 font-weight-bolder text-light">` +
-            y[0].title +
-            `</a>
-                        <br />
-                        <a class="mt-3">
-                            <i class="fas fa-user mr-2"></i> <span>` +
-            y[0].author +
-            `</span> -
-                            <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` +
-            timeDateFormat(y[0].publishedAt).dt +
-            `</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="card mt-2 shadow">
-                <img class="w-100" src="` +
-            y[1].urlToImage +
-            `" />
-                <div class="card-img-overlay d-flex overlay-dark">
-                    <div class="align-self-center my-auto mx-auto text-light">
-                        <a href="` +
-            y[1].url +
-            `" target="_blank" class="h5 font-weight-bolder text-light">` +
-            y[1].title +
-            `</a>
-                        <br />
-                        <a class="mt-3">
-                            <i class="fas fa-user mr-2"></i> <span>` +
-            y[1].author +
-            `</span> -
-                            <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` +
-            timeDateFormat(y[1].publishedAt).dt +
-            `</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-          `
-          );
+
         },
       });
 
