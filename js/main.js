@@ -10,7 +10,7 @@ const api = {
   keyNews: "b422121f5eec42f786f7420a95272b7e",
   keyNews1: "adc2048d9f684f759754fdeb64ee7242",
   keyApiFootball: "799d55db35e3fc05fd2e3518dd53ad8f824164f6c74175f9d672853639467c5e",
-  keyIpInfo: "cbbaf3253ac37b"
+  keyIpInfo: "cbbaf3253ac37b",
 };
 
 // Membuat koma setelah 3 ribuan
@@ -69,11 +69,9 @@ function clockUpdate() {
   var month = date.getMonth();
   var year = date.getFullYear();
 
-  $('#tanggal').text(day + ' ' + tgl.months[month] + ' ' + year);
-  $('#jam').text(h + ':' + m + ':' + s);
+  $("#tanggal").text(day + " " + tgl.months[month] + " " + year);
+  $("#jam").text(h + ":" + m + ":" + s);
 }
-
-
 
 // Formating tanggal
 function timeDateFormat(val) {
@@ -275,7 +273,6 @@ function newsCovid() {
 
       $.each(w, function (i, data) {
         if (i != 3) {
-
           $("#text-corona").after(
             `
           <!-- Berita Start -->
@@ -327,8 +324,7 @@ function newsCovid() {
         } else {
           return false;
         }
-      })
-
+      });
 
       $("#image-corona").attr("src", res.articles[1].urlToImage);
       $("#text-title-corona")
@@ -907,7 +903,8 @@ function coronaNews() {
                 </div>
             </div>
         </div>
-      `);
+      `
+      );
 
       $.ajax({
         url: api.urlNews +
@@ -915,7 +912,6 @@ function coronaNews() {
           api.keyNews1,
         success: function (result) {
           let y = result.articles;
-
         },
       });
 
@@ -954,40 +950,58 @@ function coronaNews() {
 // Card Jadwal Sholat
 function cardJadwalSholat(idloct, tgl) {
   $.ajax({
-    url: api.urlApiFathimah + "sholat/format/json/jadwal/kota/" + idloct + "/tanggal/" + tgl,
+    url: api.urlApiFathimah +
+      "sholat/format/json/jadwal/kota/" +
+      idloct +
+      "/tanggal/" +
+      tgl,
     success: function (res) {
       console.log(res.jadwal.data.subuh);
 
-      $('#jadwal-Sholat').append(`
+      $("#jadwal-Sholat").append(
+        `
       <table class="table table-bordered text-white">
         <tr>
           <td class="text-left font-weight-bold">Imsak</td>
-          <td>` + res.jadwal.data.imsak + `</td>
+          <td>` +
+        res.jadwal.data.imsak +
+        `</td>
         </tr>
         <tr>
           <td class="text-left font-weight-bold">Shubuh</td>
-          <td>` + res.jadwal.data.subuh + `</td>
+          <td>` +
+        res.jadwal.data.subuh +
+        `</td>
         </tr>
         <tr>
           <td class="text-left font-weight-bold">Dzuhur</td>
-          <td>` + res.jadwal.data.dzuhur + `</td>
+          <td>` +
+        res.jadwal.data.dzuhur +
+        `</td>
         </tr>
         <tr>
           <td class="text-left font-weight-bold">Ashar</td>
-          <td>` + res.jadwal.data.ashar + `</td>
+          <td>` +
+        res.jadwal.data.ashar +
+        `</td>
         </tr>
         <tr>
           <td class="text-left font-weight-bold">Maghrib</td>
-          <td>` + res.jadwal.data.maghrib + `</td>
+          <td>` +
+        res.jadwal.data.maghrib +
+        `</td>
         </tr>
         <tr>
           <td class="text-left font-weight-bold">Isya'</td>
-          <td>` + res.jadwal.data.isya + `</td>
+          <td>` +
+        res.jadwal.data.isya +
+        `</td>
         </tr>
       </table>
-      `);
-    }
-  })
+      `
+      );
+    },
+  });
 }
 
 // ipinfo
@@ -997,38 +1011,44 @@ function ipInfo() {
     success: function (res) {
       let city = res.region;
       checkId(city);
-      $('#location-sholat').text(city);
-    }
-  })
+      $("#location-sholat").text(city);
+    },
+  });
 }
 
 // check id
 function checkId(kota) {
-
   $.ajax({
     url: api.urlApiFathimah + "sholat/format/json/kota/nama/" + kota,
     success: function (res) {
       var dt = new Date();
-      var tanggal = dt.getFullYear() + "-0" + (dt.getMonth() + 1) + "-0" + dt.getDate();
+      var tanggal =
+        dt.getFullYear() + "-0" + (dt.getMonth() + 1) + "-0" + dt.getDate();
       cardJadwalSholat(res.kota[0].id, tanggal);
-    }
-  })
+    },
+  });
 }
 
+// Dropdown Daftar Kota
 function daftarKota() {
   $.ajax({
     url: api.urlApiFathimah + "sholat/format/json/kota",
     success: function (res) {
-      console.log(res.kota);
       let w = res.kota;
 
       $.each(w, function (i, data) {
-        $('#select-kota').append(`
-          <option data-id="` + data.id + `">` + data.nama + `</option>
-        `);
-      })
-    }
-  })
+        $("#select-kota").append(
+          `
+          <option class="id-daftar-kota" data-id="` +
+          data.id +
+          `">` +
+          data.nama +
+          `</option>
+        `
+        );
+      });
+    },
+  });
 }
 
 $(document).ready(function () {
@@ -1061,6 +1081,11 @@ $(document).ready(function () {
     coronaNews();
   } else if (pathname == "/religi.html") {
     daftarKota();
+
+    $('#btn-search-jadwal').click(function () {
+      var selected = $('#select-kota option:selected').data('id');
+      console.log(selected);
+    })
   }
 
   if ($(window).width() > 992) {
