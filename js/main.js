@@ -5,9 +5,12 @@ const api = {
   urlNews: "http://newsapi.org/v2/",
   urlCovidIndonesia: "https://api.kawalcorona.com/",
   urlFootballApi: "https://apiv2.apifootball.com/",
+  urlApiFathimah: "https://api.banghasan.com/",
+  urlIpInfo: "https://ipinfo.io",
   keyNews: "b422121f5eec42f786f7420a95272b7e",
   keyNews1: "adc2048d9f684f759754fdeb64ee7242",
   keyApiFootball: "799d55db35e3fc05fd2e3518dd53ad8f824164f6c74175f9d672853639467c5e",
+  keyIpInfo: "cbbaf3253ac37b"
 };
 
 // Membuat koma setelah 3 ribuan
@@ -36,6 +39,41 @@ const tgl = {
     "Desember",
   ],
 };
+
+// Jam dan Tanggal
+function clockUpdate() {
+  var date = new Date();
+
+  function addZero(x) {
+    if (x < 10) {
+      return (x = "0" + x);
+    } else {
+      return x;
+    }
+  }
+
+  function twelveHour(x) {
+    if (x > 12) {
+      return (x = x - 12);
+    } else if (x == 0) {
+      return (x = 12);
+    } else {
+      return x;
+    }
+  }
+
+  var h = addZero(twelveHour(date.getHours()));
+  var m = addZero(date.getMinutes());
+  var s = addZero(date.getSeconds());
+  var day = date.getDate();
+  var month = date.getMonth();
+  var year = date.getFullYear();
+
+  $('#tanggal').text(day + ' ' + tgl.months[month] + ' ' + year);
+  $('#jam').text(h + ':' + m + ':' + s);
+}
+
+
 
 // Formating tanggal
 function timeDateFormat(val) {
@@ -233,54 +271,64 @@ function newsCovid() {
       "top-headlines?q=corona&sortBy=publishedAt&apiKey=" +
       api.keyNews,
     success: function (res) {
-      $("#text-corona").after(
-        `
-        <!-- Berita Start -->
-        <div class="row mt-3 mx-3">
-          <!-- Image -->
-          <div class="col-md-6">
-            <div class="inner">
-              <img class="card-img-top"
-                src="` +
-        res.articles[0].urlToImage +
-        `" />
+      let w = res.articles;
+
+      $.each(w, function (i, data) {
+        if (i != 3) {
+
+          $("#text-corona").after(
+            `
+          <!-- Berita Start -->
+          <div class="row mt-3 mx-3">
+            <!-- Image -->
+            <div class="col-md-6">
+              <div class="inner">
+                <img class="card-img-top"
+                  src="` +
+            data.urlToImage +
+            `" />
+              </div>
+            </div>
+  
+            <!-- Isi -->
+            <div class="col-md-6 my-auto">
+              <a class="h5 text-dark" href="` +
+            data.url +
+            `">
+                ` +
+            data.title +
+            `
+              </a>
+              <p class="text-secondary">
+                <small>
+                  <i class="fas fa-user"></i>
+                  ` +
+            data.author +
+            `
+                  <span class="ml-2">
+                    <i class="far fa-clock"></i>
+                    ` +
+            timeDateFormat(data.publishedAt).dt +
+            `
+                  </span>
+                </small>
+              </p>
+  
+              <p class="card-text">
+                ` +
+            data.content.substring(0, 150) +
+            `...
+              </p>
             </div>
           </div>
+          <!-- Berita End -->
+        `
+          );
+        } else {
+          return false;
+        }
+      })
 
-          <!-- Isi -->
-          <div class="col-md-6 my-auto">
-            <a class="h5 text-dark" href="` +
-        res.articles[0].url +
-        `">
-              ` +
-        res.articles[0].title +
-        `
-            </a>
-            <p class="text-secondary">
-              <small>
-                <i class="fas fa-user"></i>
-                ` +
-        res.articles[0].author +
-        `
-                <span class="ml-2">
-                  <i class="far fa-clock"></i>
-                  ` +
-        timeDateFormat(res.articles[0].publishedAt).dt +
-        `
-                </span>
-              </small>
-            </p>
-
-            <p class="card-text">
-              ` +
-        res.articles[0].content.substring(0, 150) +
-        `...
-            </p>
-          </div>
-        </div>
-        <!-- Berita End -->
-      `
-      );
 
       $("#image-corona").attr("src", res.articles[1].urlToImage);
       $("#text-title-corona")
@@ -801,6 +849,7 @@ function coronaAtas() {
   });
 }
 
+// Corona NEws
 function coronaNews() {
   $.ajax({
     url: api.urlNews +
@@ -902,12 +951,96 @@ function coronaNews() {
   });
 }
 
+// Card Jadwal Sholat
+function cardJadwalSholat(idloct, tgl) {
+  $.ajax({
+    url: api.urlApiFathimah + "sholat/format/json/jadwal/kota/" + idloct + "/tanggal/" + tgl,
+    success: function (res) {
+      console.log(res.jadwal.data.subuh);
+
+      $('#jadwal-Sholat').append(`
+      <table class="table table-bordered text-white">
+        <tr>
+          <td class="text-left font-weight-bold">Imsak</td>
+          <td>` + res.jadwal.data.imsak + `</td>
+        </tr>
+        <tr>
+          <td class="text-left font-weight-bold">Shubuh</td>
+          <td>` + res.jadwal.data.subuh + `</td>
+        </tr>
+        <tr>
+          <td class="text-left font-weight-bold">Dzuhur</td>
+          <td>` + res.jadwal.data.dzuhur + `</td>
+        </tr>
+        <tr>
+          <td class="text-left font-weight-bold">Ashar</td>
+          <td>` + res.jadwal.data.ashar + `</td>
+        </tr>
+        <tr>
+          <td class="text-left font-weight-bold">Maghrib</td>
+          <td>` + res.jadwal.data.maghrib + `</td>
+        </tr>
+        <tr>
+          <td class="text-left font-weight-bold">Isya'</td>
+          <td>` + res.jadwal.data.isya + `</td>
+        </tr>
+      </table>
+      `);
+    }
+  })
+}
+
+// ipinfo
+function ipInfo() {
+  $.ajax({
+    url: api.urlIpInfo + "?token=" + api.keyIpInfo,
+    success: function (res) {
+      let city = res.region;
+      checkId(city);
+      $('#location-sholat').text(city);
+    }
+  })
+}
+
+// check id
+function checkId(kota) {
+
+  $.ajax({
+    url: api.urlApiFathimah + "sholat/format/json/kota/nama/" + kota,
+    success: function (res) {
+      var dt = new Date();
+      var tanggal = dt.getFullYear() + "-0" + (dt.getMonth() + 1) + "-0" + dt.getDate();
+      cardJadwalSholat(res.kota[0].id, tanggal);
+    }
+  })
+}
+
+function daftarKota() {
+  $.ajax({
+    url: api.urlApiFathimah + "sholat/format/json/kota",
+    success: function (res) {
+      console.log(res.kota);
+      let w = res.kota;
+
+      $.each(w, function (i, data) {
+        $('#select-kota').append(`
+          <option data-id="` + data.id + `">` + data.nama + `</option>
+        `);
+      })
+    }
+  })
+}
+
 $(document).ready(function () {
+  clockUpdate();
+  setInterval(clockUpdate, 1000);
+
   $(".loading").hide();
 
   var pathname = window.location.pathname;
 
   if (pathname == "/index.html") {
+    ipInfo();
     topNewsId();
     newsCovid();
     countCovidHome();
@@ -926,6 +1059,8 @@ $(document).ready(function () {
     topSindoCovid();
     covidIdProvince();
     coronaNews();
+  } else if (pathname == "/religi.html") {
+    daftarKota();
   }
 
   if ($(window).width() > 992) {
