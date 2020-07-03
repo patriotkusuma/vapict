@@ -374,6 +374,7 @@ function callOwlCarousel() {
   });
 }
 
+// SindonewsAPI Start
 function sindonewsAPI() {
   $(".loading").show();
   $.ajax({
@@ -415,8 +416,10 @@ function sindonewsAPI() {
     },
   });
 }
+// SindonewsAPI END
 
-// News Business
+
+// News Business National
 function newsBusinessID() {
   $.ajax({
     url: api.urlNews +
@@ -424,73 +427,18 @@ function newsBusinessID() {
       api.keyNews1,
     success: function (res) {
       let w = res.articles;
-
-      $.each(w, function (i, data) {
-        $("#row-news-id").append(
-          `
-          <div class="row mt-3 border-bottom pb-2">
-              <div class="col-sm-4 my-auto">
-                <div class="inner">
-                  <img class="w-100" src="` +
-          data.urlToImage +
-          `" />
-                </div>
-              </div>
-              <div class="col-sm-8 my-auto">
-                  <a class="h4  text-dark" target="_blank" href="` +
-          data.url +
-          `">` +
-          data.title +
-          `</a>
-                  <p class="m-0" >` +
-          data.content.substring(0, 200) +
-          `</p>
-                  <small class="text-muted">` +
-          timeDateFormat(data.publishedAt).dt +
-          `</small>
-              </div>
-          </div>
-        `
-        );
-      });
+      insertCardRow("row-news-id", w);
     },
   });
 }
 
+// News Business International
 function newsBusinessIT() {
   $.ajax({
     url: api.urlNews + "top-headlines?category=business&apiKey=" + api.keyNews1,
     success: function (res) {
       let w = res.articles;
-
-      $.each(w, function (i, data) {
-        $("#row-news-it").append(
-          `
-          <div class="row mt-3 border-bottom pb-2">
-              <div class="col-sm-4 my-auto">
-                <div class="inner">
-                  <img class="w-100" src="` +
-          data.urlToImage +
-          `" />
-                </div>
-              </div>
-              <div class="col-sm-8 my-auto">
-                  <a class="h4  text-dark" target="_blank" href="` +
-          data.url +
-          `">` +
-          data.title +
-          `</a>
-                  <p class="m-0" >` +
-          data.description +
-          `</p>
-                  <small class="text-muted">` +
-          timeDateFormat(data.publishedAt).dt +
-          `</small>
-              </div>
-          </div>
-        `
-        );
-      });
+      insertCardRow("row-news-it", w);
     },
   });
 }
@@ -632,6 +580,7 @@ function newsSportID() {
     success: function (res) {
       let w = res.articles;
 
+      insertCardRow("row-news-sp", w);
       $.each(w, function (i, data) {
         $("#row-news-sp").append(
           `
@@ -693,7 +642,7 @@ function topFootball() {
                   <br />
                   <small class="text-muted">
                       <i class="far fa-clock mr-1"></i>
-                      05 Juli 2020
+                      ` + timeDateFormat(data.publishedAt).dt + `
                   </small>
               </div>
             </div>
@@ -906,46 +855,11 @@ function coronaNews() {
       `
       );
 
-      $.ajax({
-        url: api.urlNews +
-          "everything?q=corona&sortBy=publishedAt&country=id&apiKey=" +
-          api.keyNews1,
-        success: function (result) {
-          let y = result.articles;
-        },
-      });
-
-      $.each(w, function (i, data) {
-        $("#row-news-covid").append(
-          `
-          <div class="row mt-3 border-bottom pb-2">
-              <div class="col-sm-4 my-auto">
-                <div class="inner">
-                  <img class="w-100" src="` +
-          data.urlToImage +
-          `" />
-                </div>
-              </div>
-              <div class="col-sm-8 my-auto">
-                  <a class="h4  text-dark" target="_blank" href="` +
-          data.url +
-          `">` +
-          data.title +
-          `</a>
-                  <p class="m-0" >` +
-          data.content.substring(0, 200) +
-          `</p>
-                  <small class="text-muted">` +
-          timeDateFormat(data.publishedAt).dt +
-          `</small>
-              </div>
-          </div>
-        `
-        );
-      });
+      insertCardRow("row-news-covid", w);
     },
   });
 }
+
 
 // Card Jadwal Sholat
 function cardJadwalSholat(idloct, tgl) {
@@ -956,52 +870,56 @@ function cardJadwalSholat(idloct, tgl) {
       "/tanggal/" +
       tgl,
     success: function (res) {
-      console.log(res.jadwal.data.subuh);
-
-      $("#jadwal-Sholat").append(
-        `
-      <table class="table table-bordered text-white">
-        <tr>
-          <td class="text-left font-weight-bold">Imsak</td>
-          <td>` +
-        res.jadwal.data.imsak +
-        `</td>
-        </tr>
-        <tr>
-          <td class="text-left font-weight-bold">Shubuh</td>
-          <td>` +
-        res.jadwal.data.subuh +
-        `</td>
-        </tr>
-        <tr>
-          <td class="text-left font-weight-bold">Dzuhur</td>
-          <td>` +
-        res.jadwal.data.dzuhur +
-        `</td>
-        </tr>
-        <tr>
-          <td class="text-left font-weight-bold">Ashar</td>
-          <td>` +
-        res.jadwal.data.ashar +
-        `</td>
-        </tr>
-        <tr>
-          <td class="text-left font-weight-bold">Maghrib</td>
-          <td>` +
-        res.jadwal.data.maghrib +
-        `</td>
-        </tr>
-        <tr>
-          <td class="text-left font-weight-bold">Isya'</td>
-          <td>` +
-        res.jadwal.data.isya +
-        `</td>
-        </tr>
-      </table>
-      `
-      );
+      console.log(res.jadwal);
+      inputCardJadwal(res);
     },
   });
+}
+
+// Input Jadwal Sholat ke Card
+function inputCardJadwal(value) {
+  $("#jadwal-Sholat").append(
+    `
+  <table class="table table-bordered text-white">
+    <tr>
+      <td class="text-left font-weight-bold">Imsak</td>
+      <td>` +
+    value.jadwal.data.imsak +
+    `</td>
+    </tr>
+    <tr>
+      <td class="text-left font-weight-bold">Shubuh</td>
+      <td>` +
+    value.jadwal.data.subuh +
+    `</td>
+    </tr>
+    <tr>
+      <td class="text-left font-weight-bold">Dzuhur</td>
+      <td>` +
+    value.jadwal.data.dzuhur +
+    `</td>
+    </tr>
+    <tr>
+      <td class="text-left font-weight-bold">Ashar</td>
+      <td>` +
+    value.jadwal.data.ashar +
+    `</td>
+    </tr>
+    <tr>
+      <td class="text-left font-weight-bold">Maghrib</td>
+      <td>` +
+    value.jadwal.data.maghrib +
+    `</td>
+    </tr>
+    <tr>
+      <td class="text-left font-weight-bold">Isya'</td>
+      <td>` +
+    value.jadwal.data.isya +
+    `</td>
+    </tr>
+  </table>
+  `
+  );
 }
 
 // ipinfo
@@ -1050,7 +968,62 @@ function daftarKota() {
     },
   });
 }
+// End DropDown Daftar Kota
 
+// Top news islam
+function islamicNews() {
+  $.ajax({
+    url: api.urlNews + "everything?q=islam&language=id&sortBy=publishedAt&apiKey=" + api.keyNews1,
+    success: function (res) {
+      console.log(JSON.stringify(res));
+      let w = res.articles;
+
+      insertCardRow("row-news-islamic", w);
+    }
+  })
+}
+// End Top NEws Islam
+
+// Insert to row
+function insertCardRow(id, value) {
+  $.each(value, function (i, data) {
+    if (i != 12) {
+
+      $("#" + id).append(
+        `
+        <div class="row mt-3 border-bottom pb-2">
+          <div class="col-sm-4 my-auto">
+            <div class="inner">
+              <img class="w-100" src="` +
+        data.urlToImage +
+        `" />
+            </div>
+          </div>
+          <div class="col-sm-8 my-auto">
+              <a class="h4  text-dark" target="_blank" href="` +
+        data.url +
+        `">` +
+        data.title +
+        `</a>
+              <p class="m-0" >` +
+        data.content.substring(0, 200) +
+        `</p>
+              <small class="text-muted">` +
+        timeDateFormat(data.publishedAt).dt +
+        `</small>
+          </div>
+      </div>
+  `
+      );
+    } else {
+      return false;
+    }
+
+  })
+}
+// End Insert ROw
+
+// Document Ready
 $(document).ready(function () {
   clockUpdate();
   setInterval(clockUpdate, 1000);
@@ -1081,10 +1054,12 @@ $(document).ready(function () {
     coronaNews();
   } else if (pathname == "/religi.html") {
     daftarKota();
+    islamicNews();
 
     $('#btn-search-jadwal').click(function () {
       var selected = $('#select-kota option:selected').data('id');
-      console.log(selected);
+      var date = $('#input-date-sholat').val();
+      cardJadwalSholat(selected, date);
     })
   }
 
