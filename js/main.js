@@ -706,7 +706,6 @@ function covidIdProvince() {
     success: function (res) {
       var nomor = 0;
       $.each(res, function (i, data) {
-        console.log();
         nomor = i + 1;
         $("#tbody-corona").append(
           `
@@ -738,10 +737,9 @@ function covidIdProvince() {
           [10, 5, 25],
           [10, 5, 25],
         ],
-        paging: true,
-        destroy: true,
         lengthChange: true,
         bInfo: false,
+
       });
     },
   });
@@ -749,7 +747,7 @@ function covidIdProvince() {
 
 function coronaAtas() {
   $.ajax({
-    url: `${api.proxyUrl}${api.urlCovidIndonesia}indonesia`,
+    url: `${api.urlCovidIndonesia}indonesia`,
     success: function (res) {
       $("#covid-id").append(
         `
@@ -798,7 +796,7 @@ function coronaAtas() {
 function coronaNews() {
   $.ajax({
     url: api.urlNews +
-      "everything?q=corona&sortBy=publishedAt&language=id&apiKey=" +
+      "everything?q=covid-19&sortBy=publishedAt&language=id&apiKey=" +
       api.keyNews1,
     success: function (res) {
       let w = res.articles;
@@ -870,7 +868,6 @@ function cardJadwalSholat(idloct, tgl) {
       "/tanggal/" +
       tgl,
     success: function (res) {
-      console.log(res.jadwal);
       inputCardJadwal(res);
     },
   });
@@ -878,6 +875,7 @@ function cardJadwalSholat(idloct, tgl) {
 
 // Input Jadwal Sholat ke Card
 function inputCardJadwal(value) {
+  $("#jadwal-Sholat").empty();
   $("#jadwal-Sholat").append(
     `
   <table class="table table-bordered text-white">
@@ -975,7 +973,6 @@ function islamicNews() {
   $.ajax({
     url: api.urlNews + "everything?q=islam&language=id&sortBy=publishedAt&apiKey=" + api.keyNews1,
     success: function (res) {
-      console.log(JSON.stringify(res));
       let w = res.articles;
 
       insertCardRow("row-news-islamic", w);
@@ -1056,10 +1053,15 @@ $(document).ready(function () {
     daftarKota();
     islamicNews();
 
+    ipInfo();
     $('#btn-search-jadwal').click(function () {
       var selected = $('#select-kota option:selected').data('id');
       var date = $('#input-date-sholat').val();
-      cardJadwalSholat(selected, date);
+      if (date == "") {
+        alert("Please fill the date");
+      } else {
+        cardJadwalSholat(selected, date);
+      }
     })
   }
 
