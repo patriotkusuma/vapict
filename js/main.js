@@ -749,7 +749,7 @@ function covidIdProvince() {
 
 function coronaAtas() {
   $.ajax({
-    url: api.urlCovidIndonesia + "indonesia",
+    url: `${api.proxyUrl}${api.urlCovidIndonesia}indonesia`,
     success: function (res) {
       $("#covid-id").append(
         `
