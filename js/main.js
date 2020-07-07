@@ -7,9 +7,11 @@ const api = {
   urlFootballApi: "https://apiv2.apifootball.com/",
   urlApiFathimah: "https://api.banghasan.com/",
   urlIpInfo: "https://ipinfo.io",
+  urlQuotes: "https://api.quotable.io/",
   keyNews: "b422121f5eec42f786f7420a95272b7e",
   keyNews1: "adc2048d9f684f759754fdeb64ee7242",
-  keyApiFootball: "799d55db35e3fc05fd2e3518dd53ad8f824164f6c74175f9d672853639467c5e",
+  keyApiFootball:
+    "799d55db35e3fc05fd2e3518dd53ad8f824164f6c74175f9d672853639467c5e",
   keyIpInfo: "cbbaf3253ac37b",
 };
 
@@ -77,12 +79,14 @@ function clockUpdate() {
 function timeDateFormat(val) {
   let d = new Date(val);
   const td = {
-    dt: d.getUTCDate() +
+    dt:
+      d.getUTCDate() +
       " " +
       tgl.months[d.getUTCMonth()] +
       " " +
       d.getUTCFullYear(),
-    tm: d.getUTCHours() +
+    tm:
+      d.getUTCHours() +
       ":" +
       (d.getUTCMinutes() < 10 ? "0" : "") +
       d.getUTCMinutes(),
@@ -105,24 +109,24 @@ function topNewsId() {
             <div class="card shadow-sm">
                   
                   <img class="w-100" src="` +
-          w[w.length - 3].urlToImage +
-          `" />
+            w[w.length - 3].urlToImage +
+            `" />
                   <div class="card-img-overlay d-flex overlay-dark">
                       <div class="align-self-center mx-auto text-light">
                           <a href="` +
-          w[w.length - 3].url +
-          `" target="_blank" class="h2 font-weight-bolder text-light">` +
-          w[w.length - 3].title +
-          `
+            w[w.length - 3].url +
+            `" target="_blank" class="h2 font-weight-bolder text-light">` +
+            w[w.length - 3].title +
+            `
                               </a>
                           <br class="mb-3" />
                           <a class="mt-5">
                               <i class="fas fa-user mr-2"></i> <span >` +
-          w[w.length - 3].author +
-          `</span> -
+            w[w.length - 3].author +
+            `</span> -
                               <span ><i class="far fa-clock mr-2"></i>` +
-          timeDateFormat(w[w.length - 3].publishedAt).dt +
-          `</span>
+            timeDateFormat(w[w.length - 3].publishedAt).dt +
+            `</span>
                           </a>
                       </div>
                   </div>
@@ -131,48 +135,48 @@ function topNewsId() {
           <div class="col-sm-4 my-auto">
               <div class="card mt-2 shadow-sm">
                   <img class="w-100" src="` +
-          w[w.length - 2].urlToImage +
-          `" />
+            w[w.length - 2].urlToImage +
+            `" />
                   <div class="card-img-overlay d-flex overlay-dark">
                       <div class="align-self-center my-auto mx-auto text-light">
                           <a href="` +
-          w[w.length - 2].url +
-          `" target="_blank" class="h5 font-weight-bolder text-light"
+            w[w.length - 2].url +
+            `" target="_blank" class="h5 font-weight-bolder text-light"
                               id="text-title-corona">` +
-          w[w.length - 2].title +
-          `</a>
+            w[w.length - 2].title +
+            `</a>
                           <br />
                           <a class="mt-3">
                               <i class="fas fa-user mr-2"></i> <span>` +
-          w[w.length - 2].author +
-          `</span> -
+            w[w.length - 2].author +
+            `</span> -
                               <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` +
-          timeDateFormat(w[w.length - 2].publishedAt).dt +
-          `</span>
+            timeDateFormat(w[w.length - 2].publishedAt).dt +
+            `</span>
                           </a>
                       </div>
                   </div>
               </div>
               <div class="card mt-2 shadow-sm">
                   <img class="w-100" src="` +
-          w[w.length - 1].urlToImage +
-          `" />
+            w[w.length - 1].urlToImage +
+            `" />
                   <div class="card-img-overlay d-flex overlay-dark">
                       <div class="align-self-center mx-auto text-light">
                           <a href="` +
-          w[w.length - 1].url +
-          `" target="_blank" class="h5 font-weight-bolder text-light"
+            w[w.length - 1].url +
+            `" target="_blank" class="h5 font-weight-bolder text-light"
                               id="text-title-corona">` +
-          w[w.length - 1].title +
-          `</a>
+            w[w.length - 1].title +
+            `</a>
                           <br />
                           <a class="mt-3">
                               <i class="fas fa-user mr-2"></i> <span id="author-corona">` +
-          w[w.length - 1].author +
-          `</span> -
+            w[w.length - 1].author +
+            `</span> -
                               <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` +
-          timeDateFormat(w[w.length - 1].publishedAt).dt +
-          `</span>
+            timeDateFormat(w[w.length - 1].publishedAt).dt +
+            `</span>
                           </a>
                       </div>
                   </div>
@@ -190,33 +194,33 @@ function topNewsId() {
                 <div class="inner">
                   <img class="card-img-top"
                     src="` +
-              data.urlToImage +
-              `"
+                data.urlToImage +
+                `"
                     alt="Card image cap" />
                   </div>
                 <div class="card-body">
                   <a class="card-title h5" target="_blank" href="` +
-              data.url +
-              `">` +
-              data.title +
-              `</a>
+                data.url +
+                `">` +
+                data.title +
+                `</a>
                   <p class="card-text">
                     ` +
-              data.content.substring(0, 150) +
-              `...
+                data.content.substring(0, 150) +
+                `...
                   </p>
                   <p class="card-text">
                       <small class="text-muted mr-2">
                       <i class="far fa-calendar-check"></i>  
                       ` +
-              timeDateFormat(data.publishedAt).dt +
-              `
+                timeDateFormat(data.publishedAt).dt +
+                `
                       </small>
                       <small class="text-muted">
                       <i class="far fa-clock"></i>
                       ` +
-              timeDateFormat(data.publishedAt).tm +
-              `</small>
+                timeDateFormat(data.publishedAt).tm +
+                `</small>
 
                   </p>
                 </div>
@@ -232,16 +236,16 @@ function topNewsId() {
               <div class="col-md-4 my-auto">
                   <img class="card-img-top image-carousel"
                       src="` +
-              data.urlToImage +
-              `"
+                data.urlToImage +
+                `"
                       alt="Card image cap">
               </div>
               <div class="col-md-8 my-auto">
                   <a target="_blank" class="card-title text-dark" href="` +
-              data.link +
-              `">` +
-              data.title +
-              `</a>
+                data.link +
+                `">` +
+                data.title +
+                `</a>
                   <br />
                   <small class="text-muted">
                       <i class="far fa-clock mr-1"></i>
@@ -265,7 +269,8 @@ function topNewsId() {
 // Function NewsCovid
 function newsCovid() {
   $.ajax({
-    url: api.urlNews +
+    url:
+      api.urlNews +
       "top-headlines?q=corona&sortBy=publishedAt&apiKey=" +
       api.keyNews,
     success: function (res) {
@@ -282,39 +287,39 @@ function newsCovid() {
               <div class="inner">
                 <img class="card-img-top"
                   src="` +
-            data.urlToImage +
-            `" />
+              data.urlToImage +
+              `" />
               </div>
             </div>
   
             <!-- Isi -->
             <div class="col-md-6 my-auto">
               <a class="h5 text-dark" href="` +
-            data.url +
-            `">
+              data.url +
+              `">
                 ` +
-            data.title +
-            `
+              data.title +
+              `
               </a>
               <p class="text-secondary">
                 <small>
                   <i class="fas fa-user"></i>
                   ` +
-            data.author +
-            `
+              data.author +
+              `
                   <span class="ml-2">
                     <i class="far fa-clock"></i>
                     ` +
-            timeDateFormat(data.publishedAt).dt +
-            `
+              timeDateFormat(data.publishedAt).dt +
+              `
                   </span>
                 </small>
               </p>
   
               <p class="card-text">
                 ` +
-            data.content.substring(0, 150) +
-            `...
+              data.content.substring(0, 150) +
+              `...
               </p>
             </div>
           </div>
@@ -389,18 +394,18 @@ function sindonewsAPI() {
             <div class="card shadow rounded-lg" style="width: 12rem;">
                   <div class="inner">
                     <img class="card-img-top image-carousel" src="` +
-            data.poster +
-            `" alt="Card image cap">
+              data.poster +
+              `" alt="Card image cap">
                   </div>
                   <div class="card-body">
                       <a target="_blank" class="card-title text-dark font-weight-bold" href="` +
-            data.link +
-            `">` +
-            data.judul.substring(0, 25) +
-            `...</a>
+              data.link +
+              `">` +
+              data.judul.substring(0, 25) +
+              `...</a>
                       <p class="card-text"><small> ` +
-            data.kutipan.substring(0, 50) +
-            `...</small></p>
+              data.kutipan.substring(0, 50) +
+              `...</small></p>
                   </div>
               </div>
           `
@@ -418,11 +423,11 @@ function sindonewsAPI() {
 }
 // SindonewsAPI END
 
-
 // News Business National
 function newsBusinessID() {
   $.ajax({
-    url: api.urlNews +
+    url:
+      api.urlNews +
       "top-headlines?country=id&category=business&apiKey=" +
       api.keyNews1,
     success: function (res) {
@@ -457,24 +462,24 @@ function topNewsIT() {
             <div class="card shadow-sm">
                   
                   <img class="w-100" src="` +
-          w[w.length - 3].urlToImage +
-          `" />
+            w[w.length - 3].urlToImage +
+            `" />
                   <div class="card-img-overlay d-flex overlay-dark">
                       <div class="align-self-center mx-auto text-light">
                           <a href="` +
-          w[w.length - 3].url +
-          `" target="_blank" class="h2 font-weight-bolder text-light">` +
-          w[w.length - 3].title +
-          `
+            w[w.length - 3].url +
+            `" target="_blank" class="h2 font-weight-bolder text-light">` +
+            w[w.length - 3].title +
+            `
                               </a>
                           <br class="mb-3" />
                           <a class="mt-5">
                               <i class="fas fa-user mr-2"></i> <span >` +
-          w[w.length - 3].author +
-          `</span> -
+            w[w.length - 3].author +
+            `</span> -
                               <span ><i class="far fa-clock mr-2"></i>` +
-          timeDateFormat(w[w.length - 3].publishedAt).dt +
-          `</span>
+            timeDateFormat(w[w.length - 3].publishedAt).dt +
+            `</span>
                           </a>
                       </div>
                   </div>
@@ -483,48 +488,48 @@ function topNewsIT() {
           <div class="col-sm-4 my-auto">
               <div class="card mt-2 shadow-sm">
                   <img class="w-100" src="` +
-          w[w.length - 2].urlToImage +
-          `" />
+            w[w.length - 2].urlToImage +
+            `" />
                   <div class="card-img-overlay d-flex overlay-dark">
                       <div class="align-self-center my-auto mx-auto text-light">
                           <a href="` +
-          w[w.length - 2].url +
-          `" target="_blank" class="h5 font-weight-bolder text-light"
+            w[w.length - 2].url +
+            `" target="_blank" class="h5 font-weight-bolder text-light"
                               id="text-title-corona">` +
-          w[w.length - 2].title +
-          `</a>
+            w[w.length - 2].title +
+            `</a>
                           <br />
                           <a class="mt-3">
                               <i class="fas fa-user mr-2"></i> <span>` +
-          w[w.length - 2].author +
-          `</span> -
+            w[w.length - 2].author +
+            `</span> -
                               <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` +
-          timeDateFormat(w[w.length - 2].publishedAt).dt +
-          `</span>
+            timeDateFormat(w[w.length - 2].publishedAt).dt +
+            `</span>
                           </a>
                       </div>
                   </div>
               </div>
               <div class="card mt-2 shadow-sm">
                   <img class="w-100" src="` +
-          w[w.length - 1].urlToImage +
-          `" />
+            w[w.length - 1].urlToImage +
+            `" />
                   <div class="card-img-overlay d-flex overlay-dark">
                       <div class="align-self-center mx-auto text-light">
                           <a href="` +
-          w[w.length - 1].url +
-          `" target="_blank" class="h5 font-weight-bolder text-light"
+            w[w.length - 1].url +
+            `" target="_blank" class="h5 font-weight-bolder text-light"
                               id="text-title-corona">` +
-          w[w.length - 1].title +
-          `</a>
+            w[w.length - 1].title +
+            `</a>
                           <br />
                           <a class="mt-3">
                               <i class="fas fa-user mr-2"></i> <span id="author-corona">` +
-          w[w.length - 1].author +
-          `</span> -
+            w[w.length - 1].author +
+            `</span> -
                               <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` +
-          timeDateFormat(w[w.length - 1].publishedAt).dt +
-          `</span>
+            timeDateFormat(w[w.length - 1].publishedAt).dt +
+            `</span>
                           </a>
                       </div>
                   </div>
@@ -542,16 +547,16 @@ function topNewsIT() {
               <div class="col-md-4 my-auto">
                   <img class="card-img-top image-carousel"
                       src="` +
-              data.urlToImage +
-              `"
+                data.urlToImage +
+                `"
                       alt="Card image cap">
               </div>
               <div class="col-md-8 my-auto">
                   <a target="_blank" class="card-title text-dark" href="` +
-              data.link +
-              `">` +
-              data.title +
-              `</a>
+                data.link +
+                `">` +
+                data.title +
+                `</a>
                   <br />
                   <small class="text-muted">
                       <i class="far fa-clock mr-1"></i>
@@ -574,7 +579,8 @@ function topNewsIT() {
 
 function newsSportID() {
   $.ajax({
-    url: api.urlNews +
+    url:
+      api.urlNews +
       "top-headlines?country=id&category=sport&apiKey=" +
       api.keyNews1,
     success: function (res) {
@@ -588,22 +594,22 @@ function newsSportID() {
               <div class="col-sm-4 my-auto">
                 <div class="inner">
                   <img class="w-100" src="` +
-          data.urlToImage +
-          `" />
+            data.urlToImage +
+            `" />
                 </div>
               </div>
               <div class="col-sm-8 my-auto">
                   <a class="h4  text-dark" target="_blank" href="` +
-          data.url +
-          `">` +
-          data.title +
-          `</a>
+            data.url +
+            `">` +
+            data.title +
+            `</a>
                   <p class="m-0" >` +
-          data.content.substring(0, 200) +
-          `</p>
+            data.content.substring(0, 200) +
+            `</p>
                   <small class="text-muted">` +
-          timeDateFormat(data.publishedAt).dt +
-          `</small>
+            timeDateFormat(data.publishedAt).dt +
+            `</small>
               </div>
           </div>
         `
@@ -629,20 +635,22 @@ function topFootball() {
               <div class="col-md-4 my-auto">
                   <img class="card-img-top image-carousel"
                       src="` +
-              data.urlToImage +
-              `"
+                data.urlToImage +
+                `"
                       alt="Card image cap">
               </div>
               <div class="col-md-8 my-auto">
                   <a target="_blank" class="card-title text-dark" href="` +
-              data.link +
-              `">` +
-              data.title +
-              `</a>
+                data.link +
+                `">` +
+                data.title +
+                `</a>
                   <br />
                   <small class="text-muted">
                       <i class="far fa-clock mr-1"></i>
-                      ` + timeDateFormat(data.publishedAt).dt + `
+                      ` +
+                timeDateFormat(data.publishedAt).dt +
+                `
                   </small>
               </div>
             </div>
@@ -674,16 +682,16 @@ function topSindoCovid() {
               
               <div class="my-auto pr-5">
                   <a class="small text-dark" target="_blank" class="card-title text-dark" href="` +
-              data.link +
-              `">` +
-              data.judul.substring(0, 50) +
-              `...</a>
+                data.link +
+                `">` +
+                data.judul.substring(0, 50) +
+                `...</a>
                   <br />
                   <small class="text-muted">
                       <i class="far fa-clock mr-1"></i>
                       ` +
-              data.waktu +
-              `
+                data.waktu +
+                `
                   </small>
               </div>
             </div>
@@ -711,20 +719,20 @@ function covidIdProvince() {
           `
         <tr>
         <td>` +
-          nomor +
-          `</td>
+            nomor +
+            `</td>
         <td>` +
-          data.attributes.Provinsi +
-          `</td>
+            data.attributes.Provinsi +
+            `</td>
         <td>` +
-          data.attributes.Kasus_Posi +
-          `</td>
+            data.attributes.Kasus_Posi +
+            `</td>
         <td>` +
-          data.attributes.Kasus_Semb +
-          `</td>
+            data.attributes.Kasus_Semb +
+            `</td>
         <td>` +
-          data.attributes.Kasus_Meni +
-          `</td>
+            data.attributes.Kasus_Meni +
+            `</td>
         </tr>
         `
         );
@@ -739,7 +747,6 @@ function covidIdProvince() {
         ],
         lengthChange: true,
         bInfo: false,
-
       });
     },
   });
@@ -755,8 +762,8 @@ function coronaAtas() {
             <div class="card-header h4">Posisitf</div>
             <div class="card-body">
               <h5 class="card-title">` +
-        res[0].positif +
-        ` </h5>
+          res[0].positif +
+          ` </h5>
             </div>
           </div>
 
@@ -764,8 +771,8 @@ function coronaAtas() {
             <div class="card-header h4">Sembuh</div>
             <div class="card-body">
               <h5 class="card-title">` +
-        res[0].sembuh +
-        ` </h5>
+          res[0].sembuh +
+          ` </h5>
             </div>
           </div>
 
@@ -773,8 +780,8 @@ function coronaAtas() {
             <div class="card-header h4">Meninggal</div>
             <div class="card-body">
               <h5 class="card-title">` +
-        res[0].meninggal +
-        ` </h5>
+          res[0].meninggal +
+          ` </h5>
             </div>
           </div>
 
@@ -782,8 +789,8 @@ function coronaAtas() {
             <div class="card-header h4">Dirawat</div>
             <div class="card-body">
               <h5 class="card-title">` +
-        res[0].dirawat +
-        ` </h5>
+          res[0].dirawat +
+          ` </h5>
             </div>
           </div>
       `
@@ -795,7 +802,8 @@ function coronaAtas() {
 // Corona NEws
 function coronaNews() {
   $.ajax({
-    url: api.urlNews +
+    url:
+      api.urlNews +
       "everything?q=covid-19&sortBy=publishedAt&language=id&apiKey=" +
       api.keyNews1,
     success: function (res) {
@@ -806,46 +814,46 @@ function coronaNews() {
         `
         <div class="card mt-2 shadow">
             <img class="w-100" src="` +
-        w[w.length - 2].urlToImage +
-        `" />
+          w[w.length - 2].urlToImage +
+          `" />
             <div class="card-img-overlay d-flex overlay-dark">
                 <div class="align-self-center my-auto mx-auto text-light">
                     <a href="` +
-        w[w.length - 2].url +
-        `" target="_blank" class="h5 font-weight-bolder text-light">` +
-        w[w.length - 2].title +
-        `</a>
+          w[w.length - 2].url +
+          `" target="_blank" class="h5 font-weight-bolder text-light">` +
+          w[w.length - 2].title +
+          `</a>
                     <br />
                     <a class="mt-3">
                         <i class="fas fa-user mr-2"></i> <span>` +
-        w[w.length - 2].author +
-        `</span> -
+          w[w.length - 2].author +
+          `</span> -
                         <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` +
-        timeDateFormat(w[w.length - 2].publishedAt).dt +
-        `</span>
+          timeDateFormat(w[w.length - 2].publishedAt).dt +
+          `</span>
                     </a>
                 </div>
             </div>
         </div>
         <div class="card mt-2 shadow">
             <img class="w-100" src="` +
-        w[w.length - 1].urlToImage +
-        `" />
+          w[w.length - 1].urlToImage +
+          `" />
             <div class="card-img-overlay d-flex overlay-dark">
                 <div class="align-self-center my-auto mx-auto text-light">
                     <a href="` +
-        w[w.length - 1].url +
-        `" target="_blank" class="h5 font-weight-bolder text-light">` +
-        w[w.length - 1].title +
-        `</a>
+          w[w.length - 1].url +
+          `" target="_blank" class="h5 font-weight-bolder text-light">` +
+          w[w.length - 1].title +
+          `</a>
                     <br />
                     <a class="mt-3">
                         <i class="fas fa-user mr-2"></i> <span>` +
-        w[w.length - 1].author +
-        `</span> -
+          w[w.length - 1].author +
+          `</span> -
                         <span id="time-edit-corona-news"><i class="far fa-clock mr-2"></i>` +
-        timeDateFormat(w[w.length - 1].publishedAt).dt +
-        `</span>
+          timeDateFormat(w[w.length - 1].publishedAt).dt +
+          `</span>
                     </a>
                 </div>
             </div>
@@ -858,11 +866,11 @@ function coronaNews() {
   });
 }
 
-
 // Card Jadwal Sholat
 function cardJadwalSholat(idloct, tgl) {
   $.ajax({
-    url: api.urlApiFathimah +
+    url:
+      api.urlApiFathimah +
       "sholat/format/json/jadwal/kota/" +
       idloct +
       "/tanggal/" +
@@ -882,38 +890,38 @@ function inputCardJadwal(value) {
     <tr>
       <td class="text-left font-weight-bold">Imsak</td>
       <td>` +
-    value.jadwal.data.imsak +
-    `</td>
+      value.jadwal.data.imsak +
+      `</td>
     </tr>
     <tr>
       <td class="text-left font-weight-bold">Shubuh</td>
       <td>` +
-    value.jadwal.data.subuh +
-    `</td>
+      value.jadwal.data.subuh +
+      `</td>
     </tr>
     <tr>
       <td class="text-left font-weight-bold">Dzuhur</td>
       <td>` +
-    value.jadwal.data.dzuhur +
-    `</td>
+      value.jadwal.data.dzuhur +
+      `</td>
     </tr>
     <tr>
       <td class="text-left font-weight-bold">Ashar</td>
       <td>` +
-    value.jadwal.data.ashar +
-    `</td>
+      value.jadwal.data.ashar +
+      `</td>
     </tr>
     <tr>
       <td class="text-left font-weight-bold">Maghrib</td>
       <td>` +
-    value.jadwal.data.maghrib +
-    `</td>
+      value.jadwal.data.maghrib +
+      `</td>
     </tr>
     <tr>
       <td class="text-left font-weight-bold">Isya'</td>
       <td>` +
-    value.jadwal.data.isya +
-    `</td>
+      value.jadwal.data.isya +
+      `</td>
     </tr>
   </table>
   `
@@ -956,10 +964,10 @@ function daftarKota() {
         $("#select-kota").append(
           `
           <option class="id-daftar-kota" data-id="` +
-          data.id +
-          `">` +
-          data.nama +
-          `</option>
+            data.id +
+            `">` +
+            data.nama +
+            `</option>
         `
         );
       });
@@ -971,13 +979,16 @@ function daftarKota() {
 // Top news islam
 function islamicNews() {
   $.ajax({
-    url: api.urlNews + "everything?q=islam&language=id&sortBy=publishedAt&apiKey=" + api.keyNews1,
+    url:
+      api.urlNews +
+      "everything?q=islam&language=id&sortBy=publishedAt&apiKey=" +
+      api.keyNews1,
     success: function (res) {
       let w = res.articles;
 
       insertCardRow("row-news-islamic", w);
-    }
-  })
+    },
+  });
 }
 // End Top NEws Islam
 
@@ -985,29 +996,28 @@ function islamicNews() {
 function insertCardRow(id, value) {
   $.each(value, function (i, data) {
     if (i != 12) {
-
       $("#" + id).append(
         `
         <div class="row mt-3 border-bottom pb-2">
           <div class="col-sm-4 my-auto">
             <div class="inner">
               <img class="w-100" src="` +
-        data.urlToImage +
-        `" />
+          data.urlToImage +
+          `" />
             </div>
           </div>
           <div class="col-sm-8 my-auto">
               <a class="h4  text-dark" target="_blank" href="` +
-        data.url +
-        `">` +
-        data.title +
-        `</a>
+          data.url +
+          `">` +
+          data.title +
+          `</a>
               <p class="m-0" >` +
-        data.content.substring(0, 200) +
-        `</p>
+          data.content.substring(0, 200) +
+          `</p>
               <small class="text-muted">` +
-        timeDateFormat(data.publishedAt).dt +
-        `</small>
+          timeDateFormat(data.publishedAt).dt +
+          `</small>
           </div>
       </div>
   `
@@ -1015,10 +1025,36 @@ function insertCardRow(id, value) {
     } else {
       return false;
     }
-
-  })
+  });
 }
 // End Insert ROw
+
+function quotesRandom() {
+  $.ajax({
+    url: api.urlQuotes + "random",
+    success: function (res) {
+      $("#quotes-random").append(
+        `
+      <div class="card bg-secondary w-100 text-light mx-auto">
+        <div class="card-header">
+          Quote
+        </div>
+        <div class="card-body ">
+          <blockquote class="blockquote mb-0">
+            <p>` +
+          res.content +
+          `</p>
+            <footer class="blockquote-footer text-light">` +
+          res.author +
+          `</footer>
+          </blockquote>
+        </div>
+      </div>
+      `
+      );
+    },
+  });
+}
 
 // Document Ready
 $(document).ready(function () {
@@ -1034,6 +1070,7 @@ $(document).ready(function () {
     topNewsId();
     newsCovid();
     countCovidHome();
+    quotesRandom();
   } else if (pathname == "/nasional.html") {
     newsBusinessID();
     topNewsId();
@@ -1054,15 +1091,15 @@ $(document).ready(function () {
     islamicNews();
 
     ipInfo();
-    $('#btn-search-jadwal').click(function () {
-      var selected = $('#select-kota option:selected').data('id');
-      var date = $('#input-date-sholat').val();
+    $("#btn-search-jadwal").click(function () {
+      var selected = $("#select-kota option:selected").data("id");
+      var date = $("#input-date-sholat").val();
       if (date == "") {
         alert("Please fill the date");
       } else {
         cardJadwalSholat(selected, date);
       }
-    })
+    });
   }
 
   if ($(window).width() > 992) {

@@ -3,6 +3,10 @@
 
 }
 
+.navbar-blck {
+    background-color: black;
+}
+
 .inner {
     overflow: hidden;
 }
