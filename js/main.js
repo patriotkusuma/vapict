@@ -1116,15 +1116,23 @@ function liveScore() {
             data.home_name +
             `</div>
                   <div class="col-md-6 text-right">` +
-            timeDateFormat(data.match.last_changed).dt +
+            timeDateFormat(data.last_changed).dt +
             `</div>
               </div>
               <div class="card-body row">
                   <div class="col-md-4">
-                      00:00
+                      ` +
+            data.scheduled +
+            `
                   </div>
                   <div class="col-md-4 text-center">
-                      AFC ? - ? AFC
+                      ` +
+            data.away_name +
+            `  ` +
+            data.score +
+            `  ` +
+            data.home_name +
+            `
                   </div>
                   <div class="col-md-4">
 
