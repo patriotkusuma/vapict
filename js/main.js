@@ -1070,7 +1070,6 @@ function checkId(kota) {
       var hari = dt.getDate();
       var tanggal =
         dt.getFullYear() + "-" + ((bulan < 10) ? '0' + bulan : bulan) + "-" + ((hari < 10) ? '0' + hari : hari);
-      console.log(tanggal);
       cardJadwalSholat(res.kota[0].id, tanggal);
 
     },
@@ -1189,7 +1188,6 @@ function liveScore() {
       "&secret=" +
       api.keySecret,
     success: function (res) {
-      console.log(JSON.stringify(res));
       var w = res.data.match;
 
       $.each(w, function (i, data) {
