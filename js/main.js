@@ -4,7 +4,6 @@ const api = {
   proxyUrl: "https://cors-anywhere.herokuapp.com/",
   urlNews: "http://newsapi.org/v2/",
   urlCovidIndonesia: "https://api.kawalcorona.com/",
-  urlFootballApi: "https://apiv2.apifootball.com/",
   urlLiveScore: "http://livescore-api.com/api-client/",
   urlApiFathimah: "https://api.banghasan.com/",
   urlIpInfo: "https://ipinfo.io",
@@ -437,7 +436,7 @@ function newsCovid() {
 // Function Count Covid
 function countCovidHome() {
   $.ajax({
-    url: api.urlCovidIndonesia + "indonesia",
+    url: api.proxyUrl + api.urlCovidIndonesia + "indonesia",
     success: function (res) {
       $("#count-positif").text(commaSeparateNumber(res[0].positif));
       $("#count-meninggal").text(commaSeparateNumber(res[0].meninggal));
@@ -799,7 +798,7 @@ function topSindoCovid() {
 
 function covidIdProvince() {
   $.ajax({
-    url: api.urlCovidIndonesia + "indonesia/provinsi",
+    url: api.proxyUrl + api.urlCovidIndonesia + "indonesia/provinsi",
     success: function (res) {
       var nomor = 0;
       $.each(res, function (i, data) {
@@ -843,7 +842,8 @@ function covidIdProvince() {
 
 function coronaAtas() {
   $.ajax({
-    url: `${api.urlCovidIndonesia}indonesia`,
+    dataType: 'json',
+    url: `${api.proxyUrl}${api.urlCovidIndonesia}indonesia`,
     success: function (res) {
       $("#covid-id").append(
         `
@@ -1069,9 +1069,12 @@ function checkId(kota) {
       var bulan = dt.getMonth() + 1;
       var hari = dt.getDate();
       var tanggal =
-        dt.getFullYear() + "-" + ((bulan < 10) ? '0' + bulan : bulan) + "-" + ((hari < 10) ? '0' + hari : hari);
+        dt.getFullYear() +
+        "-" +
+        (bulan < 10 ? "0" + bulan : bulan) +
+        "-" +
+        (hari < 10 ? "0" + hari : hari);
       cardJadwalSholat(res.kota[0].id, tanggal);
-
     },
   });
 }
@@ -1271,10 +1274,12 @@ $(document).ready(function () {
     ipInfo();
     $("#btn-search-jadwal").click(function () {
       var selected = $("#select-kota option:selected").data("id");
+      var namaKota = $('#select-kota option:selected').val();
       var date = $("#input-date-sholat").val();
       if (date == "") {
         alert("Please fill the date");
       } else {
+        $('#location-sholat').text(namaKota);
         cardJadwalSholat(selected, date);
       }
     });
